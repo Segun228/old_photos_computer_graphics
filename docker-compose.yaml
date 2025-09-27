@@ -1,0 +1,28 @@
+
+services:
+  old_photos_app:
+    build:
+      context: ./server
+    container_name: old_photos_container
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./uploads:/app/uploads
+      - ./static/results:/app/static/results
+      - ./server/textures:/textures
+    environment:
+      - FLASK_ENV=development
+    restart: unless-stopped
+
+
+  bot_app:
+    build:
+      context: ./bot
+    container_name: old_photos_bot
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    restart: unless-stopped
+    depends_on:
+      - old_photos_app

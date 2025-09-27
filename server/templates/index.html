@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Эффекты старения</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Состаривание изображений</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" multiple required><br><br>
+
+        <label>Шум: <input type="range" name="noise" min="0" max="100" value="0"></label><br>
+        <label>Сепия: <input type="range" name="sepia" min="0" max="100" value="0"></label><br>
+        <label>Царапины: <input type="range" name="scratch" min="0" max="100" value="0"></label><br><br>
+
+        <label>Формат:
+            <select name="format">
+                <option value="jpg">JPG</option>
+                <option value="png">PNG</option>
+            </select>
+        </label><br>
+
+        <label>Качество JPG: <input type="range" name="quality" min="10" max="100" value="90"></label><br><br>
+
+        <button type="submit">Обработать</button>
+        <button type="button" onclick="resetForm()">Сбросить</button>
+    </form>
+
+    <script>
+        function resetForm() {
+            document.querySelectorAll('input[type="range"]').forEach(el => el.value = 0);
+        }
+    </script>
+</body>
+</html>

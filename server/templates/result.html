@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Результаты</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Результаты обработки</h1>
+
+    {% for image in images %}
+        <div class="preview-block">
+            <h3>{{ image.name }}</h3>
+            <div class="preview-images">
+                <div><p>До:</p><img src="{{ image.original }}" width="300"></div>
+                <div><p>После:</p><img src="{{ image.result }}" width="300"></div>
+            </div>
+            <a href="{{ url_for('download', filename=image.name) }}">Скачать</a>
+        </div>
+        <hr>
+    {% endfor %}
+
+    <a href="{{ url_for('index') }}">Обработать ещё</a>
+</body>
+</html>
