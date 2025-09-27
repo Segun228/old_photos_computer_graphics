@@ -25,13 +25,16 @@
 
 1. Клонирование репозитория
 
+```bash
 git clone <ссылка-на-проект>
 cd old_photos_cg
+```
 
 2. Настройка окружения
 
 Создайте виртуальное окружение:
 
+```bash
 # Unix/MacOS
 python -m venv venv
 source venv/bin/activate
@@ -39,24 +42,28 @@ source venv/bin/activate
 # Windows
 python -m venv venv
 venv\Scripts\activate
+```
 
 3. Установка зависимостей
 
+```bash
 pip install -r requirements.txt
+```
 
 requirements.txt:
-
+```
 flask>=2.3.0
 opencv-python>=4.7.0
 numpy>=1.24.0
 pillow>=9.5.0
 aiohttp>=3.8.0
 aiogram>=3.21.0
+```
 
 4. Запуск приложения
-
+```bash
 python app.py
-
+```
 Приложение будет доступно по адресу: http://localhost:8000
 
 ⸻
@@ -143,7 +150,7 @@ if __name__ == '__main__':
 	2.	bot_app — Telegram-бот для отправки изображений на сервер
 
 Структура сервисов
-
+```docker-compose.yaml
 services:
   old_photos_app:
     build:
@@ -169,8 +176,8 @@ services:
       - .env
     restart: unless-stopped
     depends_on:
-      - old_photos_app            # Бот ждёт, пока Flask-сервер будет готов
-
+      - old_photos_app
+```
 
 ⸻
 
@@ -183,9 +190,9 @@ services:
 	•	uploads/ — временные файлы загруженных изображений
 	•	server/static/results/ — обработанные изображения
 	3.	Запуск сервисов
-
+```bash
 docker-compose up --build
-
+```
 	•	Flask-сервер доступен на http://localhost:8000
 	•	Telegram-бот подключается к old_photos_app через имя сервиса http://old_photos_app:8000/process_images
 
