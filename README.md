@@ -70,6 +70,7 @@ python app.py
 
 ## 📁 Структура проекта
 
+```
 old_photos_cg/
 ├── app.py                 # Основное Flask-приложение
 ├── src/
@@ -85,7 +86,7 @@ old_photos_cg/
 ├── uploads/               # Временное хранилище загруженных файлов
 ├── requirements.txt
 └── README.md
-
+```
 
 ⸻
 
