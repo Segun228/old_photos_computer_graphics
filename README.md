@@ -26,8 +26,8 @@
 1. Клонирование репозитория
 
 ```bash
-git clone <ссылка-на-проект>
-cd old_photos_cg
+git clone https://github.com/Segun228/old_photos_computer_graphics
+cd old_photos_computer_graphics
 ```
 
 2. Настройка окружения
@@ -60,32 +60,73 @@ aiohttp>=3.8.0
 aiogram>=3.21.0
 ```
 
-4. Запуск приложения
+4. Создание env файла
+если вы хотите использовать функционал телеграм-бота, то вам необходимо получить ключ бота у BotFather в телеграме, и вставить его в .env файл в корне проекта
+```env
+BOT_TOKEN = <ваш токен>
+```
+Приложение будет доступно по адресу: http://localhost:8000
+
+Для старта диалога с ботом отправте команду /start
+⸻
+
+1. Запуск приложения
 ```bash
 python app.py
 ```
 Приложение будет доступно по адресу: http://localhost:8000
-
+Также, вы можете воспользоваться инструкциями по запуску используя docker-compose, такой подход будет предпочтительнее
 ⸻
 
 ## 📁 Структура проекта
 
 ```
-old_photos_cg/
-├── app.py                 # Основное Flask-приложение
-├── src/
-│   └── utils.py           # Функции обработки изображений (шум, сепия, царапины, текстуры)
-├── textures/              # Папка с готовыми текстурами царапин
-├── templates/
-│   ├── index.html         # Главная страница с формой загрузки
-│   └── result.html        # Страница результатов
-├── static/
-│   ├── style.css          # Стили оформления
-│   ├── script.js          # Клиентские скрипты
-│   └── results/           # Директория для обработанных файлов
-├── uploads/               # Временное хранилище загруженных файлов
-├── requirements.txt
-└── README.md
+.
+├── bot/                             # Telegram-бот (aiogram v3)
+│   ├── __init__.py
+│   ├── Dockerfile
+│   ├── main.py                      # Точка входа
+│   ├── requirements.txt
+│   └── app/
+│       ├── filters/                 # Кастомные фильтры aiogram
+│       ├── handlers/                # Обработка сообщений и команд
+│       ├── keyboards/               # Клавиатуры (reply/inline)
+│       ├── middlewares/            # Промежуточная логика
+│       ├── requests/               # Обращения к Flask API
+│       └── states/                 # FSM состояния
+│
+├── server/                          # Flask-приложение
+│   ├── app.py                       # Основной серверный скрипт
+│   ├── Dockerfile
+│   ├── requirements.txt
+│   ├── src/
+│   │   └── utils.py                # Эффекты: шум, сепия, текстура
+│   ├── static/
+│   │   ├── results/                # Обработанные изображения
+│   │   └── style.css              # CSS для шаблонов (если веб-интерфейс)
+│   ├── templates/
+│   │   ├── index.html
+│   │   └── result.html
+│   ├── textures/                   # Текстуры царапин и износа
+│   │   ├── 12698.png
+│   │   ├── scratches.png
+│   │   └── wear.png
+│   └── uploads/                    # Временные загруженные изображения
+│       ├── i.webp
+│       ├── images.jpeg
+│       └── photo_2025-09-17_20.13.40.jpeg
+│
+├── examples/                        # Примеры изображений
+│   ├── initial/                    # Оригиналы
+│   │   ├── манул.jpeg
+│   │   └── *.jpg
+│   └── final/                      # Обработанные
+│       └── *.jpg
+│
+├── docker-compose.yaml              # Docker-оркестрация
+├── requirements.txt                 # Общие зависимости
+├── README.md                        # Документация
+└── video_instruction_for_setup.zip  # Видеоинструкция
 ```
 
 ⸻
