@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_file, url_for
+from flask import Flask, render_template, request, send_file, url_for,redirect
 from werkzeug.utils import secure_filename
 from src.utils import add_noise, apply_sepia, apply_scratch_texture
 import os
@@ -7,6 +7,7 @@ import time
 import zipfile
 from io import BytesIO
 import numpy as np
+import shutil
 
 app = Flask(__name__, static_folder='static', static_url_path='/static')
 
@@ -20,6 +21,21 @@ os.makedirs(RESULT_FOLDER, exist_ok=True)
 def uploaded_file(filename):
     return send_file(os.path.join(UPLOAD_FOLDER, filename))
 
+
+
+@app.route('/cleanup')
+def cleanup():
+    folders = [UPLOAD_FOLDER, RESULT_FOLDER]
+    for folder in folders:
+        for filename in os.listdir(folder):
+            file_path = os.path.join(folder, filename)
+            try:
+                if os.path.isfile(file_path):
+                    os.remove(file_path)
+            except Exception as e:
+                print(f"Ошибка при удалении {file_path}: {e}")
+
+    return redirect(url_for('index'))
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
